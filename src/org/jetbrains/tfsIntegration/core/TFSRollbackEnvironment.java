@@ -49,7 +49,7 @@ public class TFSRollbackEnvironment extends DefaultRollbackEnvironment {
 
   @Override
   @SuppressWarnings({"ConstantConditions"})
-  public void rollbackChanges(final List<Change> changes,
+  public void rollbackChanges(final List<? extends Change> changes,
                               final List<VcsException> vcsExceptions,
                               @NotNull final RollbackProgressListener listener) {
     List<FilePath> localPaths = new ArrayList<>();
@@ -63,8 +63,8 @@ public class TFSRollbackEnvironment extends DefaultRollbackEnvironment {
   }
 
   @Override
-  public void rollbackMissingFileDeletion(final List<FilePath> files,
-                                          final List<VcsException> errors,
+  public void rollbackMissingFileDeletion(final List<? extends FilePath> files,
+                                          final List<? super VcsException> errors,
                                           final RollbackProgressListener listener) {
     try {
       WorkstationHelper.processByWorkspaces(files, false, myProject, new WorkstationHelper.VoidProcessDelegate() {
@@ -169,8 +169,8 @@ public class TFSRollbackEnvironment extends DefaultRollbackEnvironment {
   }
 
   @Override
-  public void rollbackModifiedWithoutCheckout(final List<VirtualFile> files,
-                                              final List<VcsException> errors,
+  public void rollbackModifiedWithoutCheckout(final List<? extends VirtualFile> files,
+                                              final List<? super VcsException> errors,
                                               final RollbackProgressListener listener) {
     try {
       WorkstationHelper.processByWorkspaces(TfsFileUtil.getFilePaths(files), false, myProject, new WorkstationHelper.VoidProcessDelegate() {

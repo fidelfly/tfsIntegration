@@ -348,6 +348,7 @@ public class NTLM2Scheme extends NTLMScheme {
      * @since 3.0
      */
     @Override
+    @Deprecated
     public String authenticate(Credentials credentials, HttpMethod method) throws AuthenticationException {
     if (state == UNINITIATED) {
       throw new IllegalStateException("NTLM authentication process was not initiated");

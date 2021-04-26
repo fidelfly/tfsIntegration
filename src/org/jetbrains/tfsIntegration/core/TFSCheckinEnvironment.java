@@ -141,10 +141,10 @@ public class TFSCheckinEnvironment implements CheckinEnvironment {
 
   @NotNull
   @Override
-  public List<VcsException> commit(@NotNull List<Change> changes,
+  public List<VcsException> commit(@NotNull List<? extends Change> changes,
                                    @NotNull String commitMessage,
                                    @NotNull CommitContext commitContext,
-                                   @NotNull Set<String> feedback) {
+                                   @NotNull Set<? super String> feedback) {
     myVcs.getCheckinData().messageLabel = null;
 
     final ProgressIndicator progressIndicator = ProgressManager.getInstance().getProgressIndicator();
@@ -286,7 +286,7 @@ public class TFSCheckinEnvironment implements CheckinEnvironment {
 
   @Override
   @Nullable
-  public List<VcsException> scheduleMissingFileForDeletion(@NotNull final List<FilePath> files) {
+  public List<VcsException> scheduleMissingFileForDeletion(@NotNull final List<? extends FilePath> files) {
     final List<VcsException> errors = new ArrayList<>();
     try {
       WorkstationHelper.processByWorkspaces(files, false, myVcs.getProject(), new WorkstationHelper.VoidProcessDelegate() {
@@ -305,7 +305,7 @@ public class TFSCheckinEnvironment implements CheckinEnvironment {
 
   @Override
   @Nullable
-  public List<VcsException> scheduleUnversionedFilesForAddition(@NotNull final List<VirtualFile> files) {
+  public List<VcsException> scheduleUnversionedFilesForAddition(@NotNull final List<? extends VirtualFile> files) {
     // TODO: schedule parent folders?
     final List<VcsException> exceptions = new ArrayList<>();
     try {
